@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object","additionalProperties":false,"required":["scenario","event"],
+  "properties":{
+    "scenario":{"type":"object","additionalProperties":false,"required":["supplier_id","capacity_loss_percent","duration_days","assumed_delay_days","daily_penalty_rate","uncovered_unit_cost_cents","route_capacity_mode","time_limit_seconds","snapshot"],"properties":{
+      "supplier_id":{"type":"string","pattern":"^S[0-9]{3}$"},"capacity_loss_percent":{"type":"number","minimum":0,"maximum":100},
+      "duration_days":{"type":"integer","minimum":1},"assumed_delay_days":{"type":"integer","minimum":1},
+      "daily_penalty_rate":{"type":"string","pattern":"^(0(\\.[0-9]+)?|1(\\.0+)?)$"},"uncovered_unit_cost_cents":{"type":"integer","minimum":0},
+      "route_capacity_mode":{"enum":["single-batch","per-consignment"]},"time_limit_seconds":{"type":"integer","minimum":1},"snapshot":{"type":"string","format":"date"}}},
+    "event":{"type":"object","additionalProperties":false,"required":["event_id","event_type","initial_recommendation_time","event_time","effective_date","warehouse_id","product_id","units_lost","simulated","reason"],"properties":{
+      "event_id":{"type":"string","minLength":1},"event_type":{"const":"warehouse_finished_stock_loss"},
+      "initial_recommendation_time":{"type":"string","format":"date-time"},"event_time":{"type":"string","format":"date-time"},
+      "effective_date":{"type":"string","format":"date"},"warehouse_id":{"type":"string","pattern":"^W[0-9]{3}$"},
+      "product_id":{"type":"string","pattern":"^P[0-9]{3}$"},"units_lost":{"type":"integer","minimum":1},
+      "simulated":{"const":true},"reason":{"type":"string","minLength":10}}}
+  }
+}

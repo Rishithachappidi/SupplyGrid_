@@ -1,0 +1,25 @@
+{
+  "case_id": "SG8-528fe7c39a07451881e4aff826e85ac5",
+  "supplier_id": "S037",
+  "agent": "risk",
+  "status": "SUCCEEDED",
+  "data": {
+    "supplier_id": "S037",
+    "date": "2028-12-30",
+    "disruption_probability": 0.07502715289592743,
+    "risk_rank": 69,
+    "risk_level": "LOW",
+    "threshold": 0.14922574162483215,
+    "horizon_days": 7,
+    "confirmed_disruption": false,
+    "explanations": []
+  },
+  "evidence": [
+    {
+      "tool": "risk_core",
+      "path": "C:\\Users\\rishi\\Downloads\\Supplygrid\\SupplyGrid_Step7_V2\\risk_api.py",
+      "sha256": "3e22dc4c5de585bef5f89e0ae68026f0427a42e09a2b37797c2d7d44f6d26886"
+    }
+  ],
+  "actions_executed": false
+}

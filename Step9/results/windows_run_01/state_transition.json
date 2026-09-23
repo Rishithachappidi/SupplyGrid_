@@ -1,0 +1,31 @@
+{
+  "event": {
+    "event_id": "EVT-S037-W023-P050-001",
+    "event_type": "warehouse_finished_stock_loss",
+    "initial_recommendation_time": "2027-01-01T09:00:00",
+    "event_time": "2027-01-01T09:05:00",
+    "effective_date": "2027-01-01",
+    "warehouse_id": "W023",
+    "product_id": "P050",
+    "units_lost": 962,
+    "simulated": true,
+    "reason": "Synthetic same-day stock-count correction after first recommendation, before execution"
+  },
+  "inventory_id": "I004749",
+  "before": {
+    "quantity_on_hand": 1180,
+    "reserved_quantity": 118,
+    "available_quantity": 1062,
+    "safety_stock": 100
+  },
+  "after": {
+    "quantity_on_hand": 218,
+    "reserved_quantity": 118,
+    "available_quantity": 100,
+    "safety_stock": 100
+  },
+  "original_inventory_sha256": "edc2f9540c0a7262429bc17db10dca299d0096b0cc8139f034ee72a420fa5b9a",
+  "simulated_inventory_sha256": "6db9810a5882339781dbed86c6be63210179c2723f51ad73c0cd3f83f61d7d23",
+  "frozen_source_changed": false,
+  "real_actions_executed": false
+}

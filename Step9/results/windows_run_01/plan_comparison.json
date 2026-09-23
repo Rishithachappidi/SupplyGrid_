@@ -1,0 +1,42 @@
+{
+  "initial_solver_status": "OPTIMAL",
+  "revised_solver_status": "OPTIMAL",
+  "initial_conditional_objective_usd": "12627.78",
+  "revised_conditional_objective_usd": "12639.28",
+  "conditional_objective_delta_usd": "11.50",
+  "initial_protected_orders": 36,
+  "revised_protected_orders": 35,
+  "initial_unresolved_orders": 80,
+  "revised_unresolved_orders": 81,
+  "initial_unresolved_units": 595,
+  "revised_unresolved_units": 604,
+  "initial_potential_order_count": 116,
+  "revised_potential_order_count": 116,
+  "added_potential_order_ids": [],
+  "removed_potential_order_ids": [],
+  "revised_cost_breakdown_cents": {
+    "finished_stock_transport_cents": 137303,
+    "remaining_penalty_cents": 1126625,
+    "unresolved_service_cents": 0
+  },
+  "removed_selected_transfers": 1,
+  "added_selected_transfers": 0,
+  "removed_production_jobs": 0,
+  "added_production_jobs": 0,
+  "removed_procurement_lots": 0,
+  "added_procurement_lots": 0,
+  "selected_finished_transfers_initial": 36,
+  "selected_finished_transfers_revised": 35,
+  "selected_production_initial": 0,
+  "selected_production_revised": 0,
+  "old_plan_reassessment": {
+    "valid": false,
+    "audit_error_type": "ArithmeticError",
+    "audit_reason": "Disabled or modified finished-stock action"
+  },
+  "initial_financial_conditional_exposure_usd": "16172.30",
+  "revised_financial_conditional_exposure_usd": "16172.30",
+  "scope": "Synthetic same-snapshot what-if, not causal loss, realized savings, or executed actions",
+  "recommendation_only": true,
+  "source_modified": false
+}

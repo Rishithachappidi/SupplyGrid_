@@ -1,0 +1,25 @@
+{
+  "scenario": {
+    "supplier_id": "S037",
+    "capacity_loss_percent": 80,
+    "duration_days": 10,
+    "assumed_delay_days": 10,
+    "daily_penalty_rate": "0.001",
+    "uncovered_unit_cost_cents": 0,
+    "route_capacity_mode": "per-consignment",
+    "time_limit_seconds": 60,
+    "snapshot": "2027-01-01"
+  },
+  "event": {
+    "event_id": "EVT-S037-W023-P050-001",
+    "event_type": "warehouse_finished_stock_loss",
+    "initial_recommendation_time": "2027-01-01T09:00:00",
+    "event_time": "2027-01-01T09:05:00",
+    "effective_date": "2027-01-01",
+    "warehouse_id": "W023",
+    "product_id": "P050",
+    "units_lost": 962,
+    "simulated": true,
+    "reason": "Synthetic same-day stock-count correction after first recommendation, before execution"
+  }
+}

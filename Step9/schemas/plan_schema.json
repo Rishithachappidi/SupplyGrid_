@@ -1,0 +1,9 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","type":"object",
+  "required":["initial_solver_status","revised_solver_status","initial_conditional_objective_usd","revised_conditional_objective_usd","conditional_objective_delta_usd","initial_protected_orders","revised_protected_orders","old_plan_reassessment","recommendation_only","source_modified"],
+  "properties":{"initial_solver_status":{"enum":["OPTIMAL","FEASIBLE"]},"revised_solver_status":{"enum":["OPTIMAL","FEASIBLE"]},
+  "initial_conditional_objective_usd":{"type":"string"},"revised_conditional_objective_usd":{"type":"string"},"conditional_objective_delta_usd":{"type":"string"},
+  "initial_protected_orders":{"type":"integer","minimum":0},"revised_protected_orders":{"type":"integer","minimum":0},
+  "old_plan_reassessment":{"type":"object","required":["valid"],"properties":{"valid":{"const":false}}},
+  "recommendation_only":{"const":true},"source_modified":{"const":false}}
+}

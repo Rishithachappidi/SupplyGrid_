@@ -1,0 +1,7 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","additionalProperties":false,
+  "required":["event","inventory_id","before","after","original_inventory_sha256","simulated_inventory_sha256","frozen_source_changed","real_actions_executed"],
+  "properties":{"event":{"type":"object"},"inventory_id":{"type":"string"},"before":{"type":"object"},"after":{"type":"object"},
+  "original_inventory_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"simulated_inventory_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+  "frozen_source_changed":{"const":false},"real_actions_executed":{"const":false}}
+}
