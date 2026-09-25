@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SupplyGrid autonomous supply-chain disruption control tower." />
+  <title>SupplyGrid Control Tower</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071319'/%3E%3Cpath d='M14 21h36M14 43h36M20 21v22M44 21v22' stroke='%234de3bc' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23ffb45c'/%3E%3C/svg%3E" />
+  <style>
+:root{--bg:#061014;--panel:#0a171c;--panel2:#0d1d23;--line:#193038;--text:#e8f2ef;--muted:#7e9696;--mint:#4de3bc;--blue:#56a8ff;--orange:#ffb45c;--violet:#aa8cff;--red:#ff6e75;--shadow:0 24px 70px rgba(0,0,0,.24)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 72% 0,#0c2930 0,transparent 27%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px}button,input,select{font:inherit}button{cursor:pointer}.app-shell{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:28px 22px;border-right:1px solid var(--line);background:rgba(5,14,18,.9);backdrop-filter:blur(18px);display:flex;flex-direction:column;z-index:10}.brand{display:flex;gap:12px;align-items:center;color:var(--text);text-decoration:none;margin:2px 5px 48px}.brand span:last-child{display:grid;letter-spacing:.09em}.brand b{font-size:.92rem}.brand small{font-size:.61rem;color:var(--muted);margin-top:3px}.brand-mark{position:relative;width:36px;height:36px;border:1px solid rgba(77,227,188,.35);border-radius:10px;display:block;background:#0c2022}.brand-mark i{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px rgba(77,227,188,.8)}.brand-mark i:nth-child(1){left:7px;top:7px}.brand-mark i:nth-child(2){right:7px;top:7px}.brand-mark i:nth-child(3){left:7px;bottom:7px}.brand-mark i:nth-child(4){right:7px;bottom:7px}.brand-mark:after,.brand-mark:before{content:"";position:absolute;background:var(--mint);opacity:.4}.brand-mark:after{width:20px;height:1px;left:7px;top:17px}.brand-mark:before{width:1px;height:20px;left:17px;top:7px}.sidebar nav{display:grid;gap:7px}.nav-link{display:flex;align-items:center;gap:13px;padding:12px 13px;border-radius:10px;text-decoration:none;color:#8ca0a1;font-size:.86rem;transition:.2s}.nav-link span{font-size:.64rem;font-weight:800;color:#4f6668}.nav-link:hover,.nav-link.active{color:var(--text);background:#0d2024}.nav-link.active span{color:var(--mint)}.sidebar-foot{margin-top:auto;border-top:1px solid var(--line);padding:20px 5px 2px;display:flex;gap:10px;align-items:center}.sidebar-foot div{display:grid}.sidebar-foot strong{font-size:.76rem}.sidebar-foot small{font-size:.65rem;color:var(--muted);margin-top:2px}.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 6px rgba(77,227,188,.08);animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(77,227,188,0)}}main{width:min(1500px,100%);padding:35px 40px 45px}.topbar{display:flex;align-items:flex-end;justify-content:space-between;margin:0 0 28px}.eyebrow,.step{margin:0;color:var(--mint);font-size:.64rem;letter-spacing:.2em;font-weight:800}.topbar h1{font-size:clamp(1.75rem,3vw,2.6rem);margin:6px 0 0;letter-spacing:-.04em}.top-actions{display:flex;gap:10px;align-items:center}.mode-badge,.optimal-badge,.comparison-status{font-size:.66rem;letter-spacing:.12em;font-weight:800;border:1px solid #234047;color:#a5b8b8;padding:8px 11px;border-radius:999px}.icon-button{width:36px;height:36px;border-radius:50%;color:var(--mint);border:1px solid #27464b;background:#0d1d21}.panel,.kpi-card{background:linear-gradient(145deg,rgba(13,30,35,.96),rgba(8,22,27,.96));border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.scenario-card{padding:25px}.section-heading{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:23px}.section-heading h2{font-size:1.08rem;letter-spacing:-.015em;margin:7px 0 0}.section-heading p{color:var(--muted);max-width:420px;font-size:.78rem;margin:7px 0 0;text-align:right;line-height:1.55}.section-heading.compact{margin-bottom:18px;align-items:center}.scenario-grid{display:grid;grid-template-columns:1fr 1.5fr .85fr .85fr 1.35fr;gap:14px;align-items:end}label{display:grid;gap:8px;color:#9aafb0;font-size:.72rem;font-weight:700;letter-spacing:.03em}select,input[type=number]{width:100%;background:#071318;color:var(--text);border:1px solid #20373e;border-radius:9px;padding:12px 13px;outline:none}select:focus,input:focus{border-color:var(--mint)}.input-unit{display:flex;align-items:center;border:1px solid #20373e;background:#071318;border-radius:9px;padding-right:11px}.input-unit input{border:0;background:transparent;padding-right:4px}.input-unit em{font-style:normal;color:var(--muted);font-size:.71rem;white-space:nowrap}.range-label{grid-template-columns:1fr auto}.range-label input{grid-column:1/-1}.range-label output{color:var(--text);font-size:.78rem}input[type=range]{accent-color:var(--mint);width:100%}.primary-button,.danger-button,.secondary-button{border:0;border-radius:9px;padding:13px 16px;font-weight:800;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase}.primary-button{background:var(--mint);color:#04110e;display:flex;justify-content:space-between;align-items:center}.primary-button:hover{filter:brightness(1.08)}.primary-button.running{opacity:.7;pointer-events:none}.secondary-button{background:#10272b;border:1px solid #25464c;color:var(--text)}.danger-button{background:var(--red);color:#1c090a;width:100%;margin-top:18px}.analysis-strip{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}.analysis-line{display:flex;justify-content:space-between;font-size:.72rem;color:#9bb0b0}.analysis-line strong{color:var(--mint)}.progress-track{height:4px;background:#13292f;border-radius:10px;margin:10px 0;overflow:hidden}.progress-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--blue));transition:width .35s}.analysis-steps{display:grid;grid-template-columns:repeat(6,1fr);color:#4d6567;font-size:.59rem;text-transform:uppercase;letter-spacing:.08em}.analysis-steps span:not(:first-child){text-align:center}.analysis-steps span:last-child{text-align:right}.analysis-steps span.done{color:var(--mint)}.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}.kpi-card{padding:18px;position:relative;overflow:hidden}.kpi-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent)}.accent-mint{--accent:var(--mint)}.accent-blue{--accent:var(--blue)}.accent-orange{--accent:var(--orange)}.accent-violet{--accent:var(--violet)}.kpi-top{display:flex;justify-content:space-between;align-items:center;color:#869b9c;font-size:.69rem}.why{border:0;background:transparent;color:#667f81;font-size:.59rem;font-weight:800;letter-spacing:.1em;padding:4px}.why:hover{color:var(--mint)}.kpi-card>strong{display:block;font-size:1.75rem;margin:13px 0 5px;letter-spacing:-.04em}.kpi-card>small{font-size:.66rem;color:var(--muted)}.status-low{color:var(--mint);font-weight:800}.network-layout{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(260px,.7fr);gap:16px}.network-panel,.node-inspector,.exposure-panel,.risk-panel,.finance-panel,.mitigation-panel,.optimizer-panel,.agents-panel,.event-panel,.comparison-panel{padding:22px}.legend{font-size:.64rem;color:var(--muted)}.legend i{width:7px;height:7px;background:var(--orange);display:inline-block;border-radius:50%;margin-right:6px}.graph-wrap{height:390px;background:radial-gradient(circle at 50% 20%,rgba(77,227,188,.05),transparent 43%),#071317;border:1px solid #14282e;border-radius:12px;overflow:hidden}.graph-wrap svg{width:100%;height:100%}.graph-edge{stroke:#254047;stroke-width:1.4;fill:none;stroke-dasharray:6 7;animation:dash 12s linear infinite}.graph-edge.active{stroke:var(--orange);opacity:.8;stroke-width:2}.graph-edge.pulse{animation:dash 1.5s linear infinite,edgePulse 1.8s infinite}@keyframes dash{to{stroke-dashoffset:-150}}@keyframes edgePulse{50%{opacity:.35}}.graph-node{cursor:pointer}.graph-node circle,.graph-node rect{fill:#0c2227;stroke:#315059;stroke-width:1.3;transition:.25s}.graph-node text{fill:#bed0cf;font-size:11px;font-weight:700;text-anchor:middle;pointer-events:none}.graph-node .node-type{fill:#617b7c;font-size:8px;letter-spacing:.12em}.graph-node:hover circle,.graph-node:hover rect,.graph-node.selected circle,.graph-node.selected rect{stroke:var(--mint);filter:drop-shadow(0 0 8px rgba(77,227,188,.35))}.graph-node.affected circle,.graph-node.affected rect{stroke:var(--orange)}.graph-note{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;color:#738a8b;font-size:.68rem}.graph-note span:first-child{color:var(--orange)}.graph-note b{font-size:1rem}.graph-note small{margin-left:auto}.node-inspector{text-align:center}.node-orb{width:78px;height:78px;border-radius:50%;margin:24px auto 14px;display:grid;place-items:center;border:1px solid var(--mint);background:rgba(77,227,188,.08);color:var(--mint);font-weight:900;box-shadow:0 0 35px rgba(77,227,188,.08)}.node-inspector h3{font-size:1rem;margin:0}.node-inspector>p{font-size:.71rem;color:var(--muted);line-height:1.5}.node-inspector dl,.risk-panel dl{margin:18px 0;display:grid}.node-inspector dl div,.risk-panel dl div{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:10px 0;font-size:.67rem}.node-inspector dt,.risk-panel dt{color:var(--muted)}.node-inspector dd,.risk-panel dd{margin:0}.impact-cards{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px}.exposure-list{display:grid;gap:12px}.exposure-list div{display:grid;grid-template-columns:150px 70px 1fr;align-items:center;gap:12px;font-size:.72rem;color:#94a9a9}.exposure-list b{font-size:.85rem;color:var(--text);text-align:right}.exposure-list i{height:5px;background:#142b31;border-radius:8px;overflow:hidden}.exposure-list i:after{content:"";display:block;width:var(--w);height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));border-radius:8px}.risk-panel{display:grid;grid-template-columns:160px 1fr;align-items:center}.risk-panel .section-heading{grid-column:1/-1}.risk-ring{width:140px;height:140px;position:relative}.risk-ring svg{transform:rotate(-90deg)}.risk-ring circle{fill:none;stroke:#173037;stroke-width:9}.risk-ring .ring-value{stroke:var(--mint);stroke-linecap:round;stroke-dasharray:301.6;stroke-dashoffset:279}.risk-ring>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.risk-ring b{font-size:1.25rem}.risk-ring span{font-size:.55rem;color:var(--mint);margin-top:3px}.finance-panel{margin-top:16px}.finance-grid{display:grid;grid-template-columns:1fr 1.7fr;gap:34px}.finance-controls{display:grid;gap:17px}.finance-controls label span{display:grid;grid-template-columns:1fr 65px;align-items:center;gap:10px}.finance-controls output{font-size:.66rem;color:var(--text);text-align:right}.assumption-note{padding:12px;border-left:2px solid var(--orange);background:rgba(255,180,92,.05);font-size:.65rem;line-height:1.45;color:#9ca9a7}.finance-chart{display:grid;gap:18px;align-content:center}.bar-row{display:grid;grid-template-columns:135px 1fr 90px;gap:12px;align-items:center;font-size:.68rem;color:#8ca1a2}.bar-row>i{height:14px;border-radius:4px;background:#10262b;overflow:hidden}.bar-row>i>b{display:block;height:100%;border-radius:4px;background:#35535a;transition:width .5s}.bar-row [data-bar=revenue]{width:100%;background:linear-gradient(90deg,#236851,var(--mint))}.bar-row [data-bar=penalty]{width:68%;background:var(--orange)}.bar-row [data-bar=mitigation]{width:18%;background:var(--blue)}.bar-row [data-bar=objective]{width:53%;background:var(--violet)}.bar-row strong{text-align:right;color:var(--text);font-size:.72rem}.bar-row.selected{color:var(--violet)}.mitigation-layout,.replan-layout{display:grid;grid-template-columns:1.45fr 1fr;gap:16px;margin-top:16px}.mitigation-panel sup{font-size:.58rem;background:rgba(77,227,188,.11);color:var(--mint);padding:3px 6px;border-radius:99px}.filters{display:flex;gap:4px;background:#071419;padding:3px;border-radius:8px}.filters button{background:transparent;color:#748a8b;border:0;border-radius:6px;padding:7px 9px;font-size:.61rem}.filters button.active{background:#163037;color:var(--text)}.action-summary{display:flex;gap:22px;padding:12px;background:#071418;border-radius:9px;margin-bottom:12px;font-size:.65rem;color:#84999a}.action-summary span{display:flex;align-items:center;gap:6px}.action-summary i{width:6px;height:6px;border-radius:50%}.mint{background:var(--mint)}.blue{background:var(--blue)}.orange{background:var(--orange)}.action-table{display:grid;gap:7px;max-height:300px;overflow:auto;padding-right:4px}.action-row{display:grid;grid-template-columns:75px 1.5fr 1fr 62px 72px;align-items:center;gap:10px;background:#09181d;border:1px solid #142b30;border-radius:8px;padding:10px 11px;font-size:.64rem;color:#83999a;cursor:pointer}.action-row:hover{border-color:#2c4b52}.action-row b{color:#cbd9d7}.action-type{display:flex;align-items:center;gap:6px}.eligible{color:var(--mint);font-size:.57rem}.optimizer-flow{display:flex;justify-content:space-between;align-items:center;background:#071418;border-radius:10px;padding:16px 12px;text-align:center}.optimizer-flow span{font-weight:800;font-size:.82rem}.optimizer-flow small{font-size:.53rem;color:var(--muted);font-weight:600}.optimizer-flow b{color:#435d60}.optimizer-flow .solver{color:var(--mint);border:1px solid #23564d;border-radius:8px;padding:8px 13px}.optimal-badge{color:var(--mint);border-color:#23564d}.plan-stats{display:grid;grid-template-columns:1fr 1fr;margin:17px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}.plan-stats div{padding:13px;display:grid;gap:4px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.plan-stats div:nth-child(2n){border-right:0}.plan-stats div:nth-child(n+3){border-bottom:0}.plan-stats span{font-size:.61rem;color:var(--muted)}.plan-stats b{font-size:.82rem}.cost-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:16px 0}.cost-compare div{display:grid;padding:10px;background:#071418;border-radius:8px}.cost-compare span{font-size:.59rem;color:var(--muted)}.cost-compare b{font-size:.84rem;margin-top:3px}.cost-compare em{font-size:.62rem;color:var(--mint);font-style:normal}.cost-compare .optimized{border:1px solid #225448}.agents-panel{margin-top:16px}.agent-pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative}.agent{position:relative;display:grid;grid-template-columns:28px 35px 1fr auto;gap:8px;align-items:center;padding:13px;background:#08171b;border:1px solid #193239;border-radius:9px}.agent>span{position:absolute;top:5px;left:7px;font-size:.48rem;color:#3e5a5c}.agent>i{width:32px;height:32px;border:1px solid #27504c;background:rgba(77,227,188,.05);color:var(--mint);border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.69rem;font-weight:900}.agent div{display:grid;gap:3px}.agent b{font-size:.7rem}.agent small{font-size:.55rem;color:var(--muted)}.agent>em{color:var(--mint);font-style:normal}.trace-line{display:grid;grid-template-columns:repeat(5,auto 1fr);margin-top:14px;align-items:center;font-size:.54rem;color:#60797a}.trace-line time{color:var(--mint);margin-right:4px}.trace-line span{border-bottom:1px dashed #264348;padding-bottom:5px;margin-right:8px}.event-panel>p{font-size:.72rem;color:var(--muted);line-height:1.5}.event-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.event-fields label:last-child{grid-column:1/-1}.event-status{margin-top:13px;padding:12px;background:#071418;border-radius:8px;display:grid;gap:3px}.event-status span{font-size:.69rem;font-weight:800}.event-status small{font-size:.6rem;color:var(--muted)}.event-status.invalid{border-left:2px solid var(--red)}.event-status.success{border-left:2px solid var(--mint)}.comparison-status{color:#9eb0af}.comparison-status.changed{color:var(--orange);border-color:#644426}.comparison-table{border:1px solid var(--line);border-radius:9px;overflow:hidden}.comparison-table>div{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:10px 12px;border-bottom:1px solid var(--line);font-size:.67rem}.comparison-table>div:last-child{border:0}.comparison-table .head{background:#071418;color:var(--muted)}.comparison-table b{text-align:right}.delta-card{margin-top:14px;padding:13px;background:#071418;border-radius:9px;display:grid;gap:4px}.delta-card span,.delta-card small{font-size:.61rem;color:var(--muted)}.delta-card b{font-size:.78rem}.delta-card.changed{border:1px solid #71483b;background:rgba(255,110,117,.04)}footer{display:flex;align-items:center;gap:18px;border-top:1px solid var(--line);margin-top:28px;padding-top:22px;color:#526b6d;font-size:.62rem}footer>span{font-weight:900;letter-spacing:.11em}footer p{margin:0;flex:1}footer button{border:0;background:transparent;color:#789192;font-size:.62rem}.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.52);opacity:0;pointer-events:none;transition:.25s;z-index:30}.drawer{position:fixed;right:0;top:0;height:100vh;width:min(430px,95vw);background:#09171c;border-left:1px solid #244048;padding:36px;transform:translateX(105%);transition:.3s cubic-bezier(.2,.8,.2,1);z-index:31;overflow:auto}.drawer.open{transform:none}.drawer-backdrop.open{opacity:1;pointer-events:auto}.drawer-close{position:absolute;top:18px;right:20px;border:1px solid #29444b;background:#102329;color:var(--text);border-radius:50%;width:32px;height:32px}.drawer h2{font-size:1.5rem;margin:10px 0 24px}.drawer p{color:#98aaaa;font-size:.78rem;line-height:1.65}.evidence-path{display:grid;gap:6px;margin:20px 0}.evidence-path span{padding:12px;background:#0d2025;border:1px solid #1d383e;border-radius:8px;font-size:.72rem}.evidence-path i{text-align:center;color:var(--mint);font-style:normal}.check-list{display:grid;gap:10px;margin-top:18px}.check-list div{font-size:.72rem;padding:10px;border-bottom:1px solid var(--line)}.check-list b{color:var(--mint);margin-right:8px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#e8f2ef;color:#071317;border-radius:8px;padding:11px 16px;font-size:.7rem;font-weight:800;transition:.25s;z-index:50}.toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:1150px){.app-shell{grid-template-columns:82px 1fr}.sidebar{padding:25px 13px}.brand span:last-child,.nav-link:not(.active){font-size:0}.brand{margin-left:auto;margin-right:auto}.nav-link{justify-content:center}.nav-link span{font-size:.6rem}.sidebar-foot div{display:none}.sidebar-foot{justify-content:center}.scenario-grid{grid-template-columns:1fr 1fr 1fr}.primary-button{grid-column:2/-1}.kpi-grid{grid-template-columns:1fr 1fr}.network-layout,.mitigation-layout{grid-template-columns:1fr}.agent-pipeline{grid-template-columns:1fr 1fr}.trace-line{display:none}}
+@media(max-width:760px){.app-shell{display:block}.sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;padding:8px 10px;border:1px solid var(--line);z-index:20}.sidebar .brand,.sidebar-foot{display:none}.sidebar nav{display:grid;grid-template-columns:repeat(6,1fr);gap:2px}.nav-link{padding:10px 4px}.nav-link span{font-size:.58rem}.nav-link.active:after{content:"";width:4px;height:4px;background:var(--mint);border-radius:50%}.nav-link.active span{display:none}main{padding:24px 14px 90px}.topbar{align-items:center}.eyebrow{font-size:.52rem}.top-actions .mode-badge{display:none}.scenario-grid{grid-template-columns:1fr 1fr}.range-label,.primary-button{grid-column:1/-1}.section-heading{display:block}.section-heading p{text-align:left}.kpi-grid,.network-layout,.impact-cards,.finance-grid,.mitigation-layout,.replan-layout{grid-template-columns:1fr}.graph-wrap{height:300px}.node-inspector{display:none}.risk-panel{grid-template-columns:130px 1fr}.risk-ring{width:120px;height:120px}.bar-row{grid-template-columns:110px 1fr 76px}.agent-pipeline{grid-template-columns:1fr}.filters{margin-top:12px;overflow:auto}.action-summary{display:grid;grid-template-columns:1fr 1fr}.action-row{grid-template-columns:65px 1fr 55px}.action-row span:nth-child(3),.action-row span:nth-child(4){display:none}.optimizer-flow b{display:none}.trace-line{display:none}footer{display:grid}.analysis-steps{font-size:.48rem}.graph-note small{display:none}}
+
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Dashboard navigation">
+      <a class="brand" href="#overview" aria-label="SupplyGrid home">
+        <span class="brand-mark"><i></i><i></i><i></i><i></i></span>
+        <span><b>SUPPLYGRID</b><small>CONTROL TOWER</small></span>
+      </a>
+      <nav>
+        <a class="nav-link active" href="#overview"><span>01</span> Overview</a>
+        <a class="nav-link" href="#network"><span>02</span> Network impact</a>
+        <a class="nav-link" href="#finance"><span>03</span> Financial</a>
+        <a class="nav-link" href="#mitigation"><span>04</span> Mitigation</a>
+        <a class="nav-link" href="#agents"><span>05</span> Agent monitor</a>
+        <a class="nav-link" href="#replanning"><span>06</span> Replanning</a>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="pulse-dot"></span>
+        <div><strong>Simulation ready</strong><small>Synthetic research mode</small></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AUTONOMOUS SUPPLY-CHAIN INTELLIGENCE</p>
+          <h1>Disruption Control Tower</h1>
+        </div>
+        <div class="top-actions">
+          <span class="mode-badge">DEMO · S037</span>
+          <button class="icon-button" id="integrityBtn" aria-label="Open system integrity">✓</button>
+        </div>
+      </header>
+
+      <section class="scenario-card panel" id="overview">
+        <div class="section-heading">
+          <div><span class="step">SCENARIO / 01</span><h2>Configure disruption</h2></div>
+          <p>Inject a supplier event and observe the response across the network.</p>
+        </div>
+        <div class="scenario-grid">
+          <label>Supplier<select id="supplierSelect" aria-label="Supplier"></select></label>
+          <label class="range-label">Capacity loss <output id="capacityValue">80%</output>
+            <input id="capacityInput" type="range" min="0" max="100" value="80" />
+          </label>
+          <label>Duration <span class="input-unit"><input id="durationInput" type="number" min="1" max="60" value="10" /><em>days</em></span></label>
+          <label>Assumed delay <span class="input-unit"><input id="delayInput" type="number" min="0" max="60" value="10" /><em>days</em></span></label>
+          <button class="primary-button" id="runBtn"><span>Run disruption simulation</span><b>→</b></button>
+        </div>
+        <div class="analysis-strip" id="analysisStrip" aria-live="polite">
+          <div class="analysis-line"><span id="analysisLabel">Ready to analyze S037</span><strong id="analysisPercent">0%</strong></div>
+          <div class="progress-track"><i id="progressFill"></i></div>
+          <div class="analysis-steps" id="analysisSteps">
+            <span>Supplier</span><span>Components</span><span>Dependencies</span><span>Inventory</span><span>Orders</span><span>Financial</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="kpi-grid" id="kpiGrid" aria-label="Scenario key metrics">
+        <article class="kpi-card accent-mint"><div class="kpi-top"><span>Prediction risk</span><button class="why" data-why="risk">WHY?</button></div><strong id="riskKpi">7.50%</strong><small><b class="status-low">LOW</b> · Rank 69 / 100</small></article>
+        <article class="kpi-card accent-blue"><div class="kpi-top"><span>Potential exposure</span><button class="why" data-why="exposure">WHY?</button></div><strong id="ordersKpi">116</strong><small>orders potentially uncovered</small></article>
+        <article class="kpi-card accent-orange"><div class="kpi-top"><span>Conditional penalty</span><button class="why" data-why="financial">WHY?</button></div><strong id="penaltyKpi">$16,172</strong><small>scenario estimate, not confirmed loss</small></article>
+        <article class="kpi-card accent-violet"><div class="kpi-top"><span>Mitigation actions</span><button class="why" data-why="actions">WHY?</button></div><strong>112</strong><small>107 eligible for optimization</small></article>
+      </section>
+
+      <section class="network-layout" id="network">
+        <article class="panel network-panel">
+          <div class="section-heading compact">
+            <div><span class="step">NETWORK / 02</span><h2>Live impact propagation</h2></div>
+            <span class="legend"><i></i> Potential exposure</span>
+          </div>
+          <div class="graph-wrap">
+            <svg id="supplyGraph" viewBox="0 0 900 390" role="img" aria-label="Interactive supply-chain dependency graph"></svg>
+          </div>
+          <div class="graph-note"><span>Potential exposure</span><b>≠</b><span>Confirmed disruption</span><small>Click any node to inspect its evidence.</small></div>
+        </article>
+        <aside class="panel node-inspector" id="nodeInspector">
+          <span class="step">SELECTED NODE</span>
+          <div class="node-orb supplier">S037</div>
+          <h3>Supplier S037</h3>
+          <p>Primary supplier in the selected synthetic scenario.</p>
+          <dl><div><dt>Capacity loss</dt><dd>80%</dd></div><div><dt>Duration</dt><dd>10 days</dd></div><div><dt>Direct components</dt><dd>5</dd></div><div><dt>Model status</dt><dd>Predicted risk</dd></div></dl>
+          <button class="secondary-button why" data-why="node">View evidence path</button>
+        </aside>
+      </section>
+
+      <section class="impact-cards">
+        <article class="panel exposure-panel">
+          <div class="section-heading compact"><div><span class="step">BLAST RADIUS</span><h2>Downstream exposure</h2></div></div>
+          <div class="exposure-list">
+            <div><span>Components</span><b>5</b><i style="--w:16%"></i></div>
+            <div><span>Products</span><b>44</b><i style="--w:48%"></i></div>
+            <div><span>Factories</span><b>17</b><i style="--w:35%"></i></div>
+            <div><span>Warehouses</span><b>30</b><i style="--w:42%"></i></div>
+            <div><span>Order dependencies</span><b>43,927</b><i style="--w:92%"></i></div>
+          </div>
+        </article>
+        <article class="panel risk-panel">
+          <div class="section-heading compact"><div><span class="step">STEP 7 V2</span><h2>Predictive signal</h2></div></div>
+          <div class="risk-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48"></circle><circle class="ring-value" cx="60" cy="60" r="48"></circle></svg><div><b>7.50%</b><span>LOW RISK</span></div></div>
+          <dl><div><dt>Forecast horizon</dt><dd>7 days</dd></div><div><dt>Risk date</dt><dd>2028-12-30</dd></div><div><dt>Signal type</dt><dd>Prediction, not confirmation</dd></div></dl>
+        </article>
+      </section>
+
+      <section class="panel finance-panel" id="finance">
+        <div class="section-heading">
+          <div><span class="step">FINANCIAL / 03</span><h2>Conditional financial blast radius</h2></div>
+          <p>Adjust assumptions to inspect the modeled exposure.</p>
+        </div>
+        <div class="finance-grid">
+          <div class="finance-controls">
+            <label>Assumed delay <span><input id="financeDelay" type="range" min="1" max="20" value="10"/><output id="financeDelayValue">10 days</output></span></label>
+            <label>Daily penalty rate <span><input id="penaltyRate" type="range" min="1" max="10" value="1"/><output id="penaltyRateValue">0.10%</output></span></label>
+            <label>Cancellation rate <span><input id="cancelRate" type="range" min="0" max="20" value="0"/><output id="cancelRateValue">0%</output></span></label>
+            <div class="assumption-note">All values are conditional synthetic estimates. They do not represent confirmed enterprise loss.</div>
+          </div>
+          <div class="finance-chart" id="financeChart">
+            <div class="bar-row"><span>Revenue at risk</span><i><b data-bar="revenue"></b></i><strong id="revenueValue">$1,617,230</strong></div>
+            <div class="bar-row"><span>No-action penalty</span><i><b data-bar="penalty"></b></i><strong id="noActionValue">$16,172</strong></div>
+            <div class="bar-row"><span>Mitigation cost</span><i><b data-bar="mitigation"></b></i><strong>$1,513</strong></div>
+            <div class="bar-row selected"><span>Optimized objective</span><i><b data-bar="objective"></b></i><strong id="objectiveValue">$12,628</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mitigation-layout" id="mitigation">
+        <article class="panel mitigation-panel">
+          <div class="section-heading">
+            <div><span class="step">MITIGATION / 04</span><h2>Candidate explorer <sup>112</sup></h2></div>
+            <div class="filters" id="actionFilters"><button class="active" data-filter="all">All</button><button data-filter="inventory">Inventory</button><button data-filter="expedite">Expedite</button><button data-filter="supplier">Supplier</button></div>
+          </div>
+          <div class="action-summary"><span><i class="mint"></i><b>55</b> Reallocate inventory</span><span><i class="blue"></i><b>55</b> Expedite transfer</span><span><i class="orange"></i><b>2</b> Switch supplier</span></div>
+          <div class="action-table" id="actionTable"></div>
+        </article>
+        <article class="panel optimizer-panel">
+          <div class="section-heading compact"><div><span class="step">STEP 6 V2</span><h2>Optimization result</h2></div><span class="optimal-badge">OPTIMAL</span></div>
+          <div class="optimizer-flow"><span>112<br><small>Candidates</small></span><b>→</b><span>107<br><small>Eligible</small></span><b>→</b><span class="solver">SCIP<br><small>MILP solver</small></span><b>→</b><span>36<br><small>Selected</small></span></div>
+          <div class="plan-stats"><div><span>Protected orders</span><b>36</b></div><div><span>Unresolved orders</span><b>80</b></div><div><span>Mitigation cost</span><b>$1,512.89</b></div><div><span>Remaining penalty</span><b>$11,114.89</b></div></div>
+          <div class="cost-compare"><div><span>No action</span><b>$16,172.30</b></div><em>−21.9%</em><div class="optimized"><span>Optimized</span><b>$12,627.78</b></div></div>
+          <button class="secondary-button why" data-why="optimizer">Why this plan?</button>
+        </article>
+      </section>
+
+      <section class="panel agents-panel" id="agents">
+        <div class="section-heading"><div><span class="step">COORDINATION / 05</span><h2>Multi-agent decision trace</h2></div><p>Specialized agents call frozen deterministic tools. They do not modify operational state.</p></div>
+        <div class="agent-pipeline">
+          <article class="agent done"><span>01</span><i>R</i><div><b>Risk Agent</b><small>Probability 7.50% · Low</small></div><em>✓</em></article>
+          <article class="agent done"><span>02</span><i>G</i><div><b>Graph Agent</b><small>43,927 order dependencies</small></div><em>✓</em></article>
+          <article class="agent done"><span>03</span><i>F</i><div><b>Financial Agent</b><small>$16,172 conditional penalty</small></div><em>✓</em></article>
+          <article class="agent done"><span>04</span><i>M</i><div><b>Mitigation Agent</b><small>112 candidates generated</small></div><em>✓</em></article>
+          <article class="agent done"><span>05</span><i>O</i><div><b>Optimization Agent</b><small>Optimal plan · 36 protected</small></div><em>✓</em></article>
+        </div>
+        <div class="trace-line"><time>09:00</time><span>Risk predicted</span><time>09:01</time><span>Exposure traced</span><time>09:02</time><span>Cost modeled</span><time>09:03</time><span>Candidates generated</span><time>09:04</time><span>Plan optimized</span></div>
+      </section>
+
+      <section class="replan-layout" id="replanning">
+        <article class="panel event-panel">
+          <div class="section-heading compact"><div><span class="step">DYNAMIC REPLANNING / 06</span><h2>Inject a second event</h2></div></div>
+          <p>Test whether the initial plan remains feasible after the planning state changes.</p>
+          <div class="event-fields"><label>Warehouse<select id="warehouseSelect"><option>W023</option><option>W014</option><option>W008</option></select></label><label>Product<select id="productSelect"><option>P050</option><option>P080</option><option>P017</option></select></label><label>Inventory loss<span class="input-unit"><input id="lossInput" type="number" value="962"/><em>units</em></span></label></div>
+          <button class="danger-button" id="injectBtn">+ Inject new disruption</button>
+          <div class="event-status" id="eventStatus"><span>Waiting for new event</span><small>The initial optimized plan is currently valid.</small></div>
+        </article>
+        <article class="panel comparison-panel">
+          <div class="section-heading compact"><div><span class="step">PLAN COMPARISON</span><h2>Initial vs revised</h2></div><span class="comparison-status" id="compareStatus">READY</span></div>
+          <div class="comparison-table"><div class="head"><span>Metric</span><b>Initial</b><b>Revised</b></div><div><span>Protected</span><b>36</b><b id="revisedProtected">—</b></div><div><span>Unresolved</span><b>80</b><b id="revisedUnresolved">—</b></div><div><span>Objective</span><b>$12,627.78</b><b id="revisedObjective">—</b></div><div><span>Plan validity</span><b>Valid</b><b id="revisedValidity">—</b></div></div>
+          <div class="delta-card" id="deltaCard"><span>Replanning result</span><b>No second event injected</b><small>Apply an event to audit and revise the plan.</small></div>
+        </article>
+      </section>
+
+      <footer><span>SUPPLYGRID · RESEARCH CONTROL TOWER</span><p>Synthetic demonstration. Predictions and financial values are conditional experimental outputs.</p><button id="integrityFooter">System integrity ↗</button></footer>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Explanation panel">
+    <button class="drawer-close" id="drawerClose" aria-label="Close panel">×</button>
+    <span class="step" id="drawerTag">EVIDENCE</span>
+    <h2 id="drawerTitle">Why?</h2>
+    <div id="drawerContent"></div>
+  </aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+const $ = (s, root=document) => root.querySelector(s);
+const $ = (s, root=document) => [...root.querySelectorAll(s)];
+const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+
+const supplierSelect = $('#supplierSelect');
+for(let i=1;i<=100;i++){
+  const id=`S${String(i).padStart(3,'0')}`;
+  const opt=document.createElement('option'); opt.value=id; opt.textContent=id+(id==='S037'?' · Demo scenario':'');
+  if(id==='S037') opt.selected=true; supplierSelect.appendChild(opt);
+}
+
+const graphNodes = [
+  {id:'S037',type:'SUPPLIER',x:450,y:54,r:30,group:'supplier',detail:'Primary disrupted supplier. Five direct component dependencies are traced from this node.'},
+  {id:'C037',type:'COMPONENT',x:140,y:155,r:24,group:'component',detail:'Direct component sourced from S037. Used by multiple downstream products.'},
+  {id:'C137',type:'COMPONENT',x:295,y:155,r:24,group:'component',detail:'Direct component sourced from S037 with downstream BOM dependencies.'},
+  {id:'C237',type:'COMPONENT',x:450,y:155,r:24,group:'component',detail:'Affected component whose available buffers are checked before order exposure.'},
+  {id:'C337',type:'COMPONENT',x:605,y:155,r:24,group:'component',detail:'Direct component affected by the modeled supplier capacity loss.'},
+  {id:'C437',type:'COMPONENT',x:760,y:155,r:24,group:'component',detail:'Direct component with substitute and inventory checks applied downstream.'},
+  {id:'44',label:'44 products',type:'PRODUCTS',x:240,y:267,w:120,h:50,group:'product',detail:'44 products use at least one exposed component in the dependency graph.'},
+  {id:'17',label:'17 factories',type:'FACTORIES',x:450,y:267,w:120,h:50,group:'factory',detail:'17 factories manufacture affected products or depend on exposed material.'},
+  {id:'30',label:'30 warehouses',type:'WAREHOUSES',x:660,y:267,w:130,h:50,group:'warehouse',detail:'All 30 warehouses participate in potential inventory or fulfillment exposure.'},
+  {id:'43927',label:'43,927 order links',type:'ORDERS',x:450,y:354,w:158,h:45,group:'order',detail:'43,927 graph dependencies lead to orders; 116 remain potentially uncovered in the frozen scenario.'}
+];
+const edges = [
+  ['S037','C037'],['S037','C137'],['S037','C237'],['S037','C337'],['S037','C437'],
+  ['C037','44'],['C137','44'],['C237','17'],['C337','17'],['C437','30'],['44','43927'],['17','43927'],['30','43927']
+];
+const svg=$('#supplyGraph');
+const ns='http://www.w3.org/2000/svg';
+const byId=id=>graphNodes.find(n=>n.id===id);
+edges.forEach(([a,b])=>{
+  const s=byId(a),t=byId(b), path=document.createElementNS(ns,'path');
+  const sy=s.y+(s.r||s.h/2), ty=t.y-(t.r||t.h/2);
+  path.setAttribute('d',`M ${s.x} ${sy} C ${s.x} ${(sy+ty)/2}, ${t.x} ${(sy+ty)/2}, ${t.x} ${ty}`);
+  path.setAttribute('class','graph-edge active'); svg.appendChild(path);
+});
+graphNodes.forEach((n,idx)=>{
+  const g=document.createElementNS(ns,'g'); g.setAttribute('class',`graph-node affected ${idx===0?'selected':''}`); g.dataset.id=n.id;
+  let shape;
+  if(n.r){shape=document.createElementNS(ns,'circle');shape.setAttribute('cx',n.x);shape.setAttribute('cy',n.y);shape.setAttribute('r',n.r)}
+  else{shape=document.createElementNS(ns,'rect');shape.setAttribute('x',n.x-n.w/2);shape.setAttribute('y',n.y-n.h/2);shape.setAttribute('width',n.w);shape.setAttribute('height',n.h);shape.setAttribute('rx',10)}
+  g.appendChild(shape);
+  const label=document.createElementNS(ns,'text'); label.setAttribute('x',n.x); label.setAttribute('y',n.y+2); label.textContent=n.label||n.id; g.appendChild(label);
+  const type=document.createElementNS(ns,'text'); type.setAttribute('x',n.x); type.setAttribute('y',n.y+(n.r?15:17)); type.setAttribute('class','node-type'); type.textContent=n.type; g.appendChild(type);
+  g.addEventListener('click',()=>inspectNode(n,g)); svg.appendChild(g);
+});
+
+function inspectNode(n,g){
+  $('.graph-node').forEach(x=>x.classList.remove('selected')); g.classList.add('selected');
+  const inspector=$('#nodeInspector');
+  const value=n.label||n.id;
+  inspector.innerHTML=`<span class="step">SELECTED NODE</span><div class="node-orb ${n.group}">${n.id}</div><h3>${value}</h3><p>${n.detail}</p><dl><div><dt>Entity type</dt><dd>${n.type}</dd></div><div><dt>Exposure status</dt><dd>Potential</dd></div><div><dt>Source scenario</dt><dd>S037 / 80%</dd></div></dl><button class="secondary-button why" data-why="node">View evidence path</button>`;
+  $('.why',inspector).addEventListener('click',()=>openWhy('node'));
+}
+
+const actionData=[
+  ['MG000001','Reallocate inventory','O018417','3','$86.27','inventory'],
+  ['MG000002','Expedite transfer','O018417','3','$134.87','expedite'],
+  ['MG000003','Reallocate inventory','O096166','9','$87.98','inventory'],
+  ['MG000004','Expedite transfer','O096166','9','$139.86','expedite'],
+  ['MG000005','Switch supplier','O096166','100','$2,135.04','supplier'],
+  ['MG000006','Reallocate inventory','O019454','1','$15.10','inventory'],
+  ['MG000007','Expedite transfer','O074351','6','$92.44','expedite'],
+  ['MG000008','Switch supplier','O044817','100','$1,984.20','supplier']
+];
+function renderActions(filter='all'){
+  $('#actionTable').innerHTML=actionData.filter(x=>filter==='all'||x[5]===filter).map(x=>`<div class="action-row" data-action="${x[0]}"><b>${x[0]}</b><span class="action-type"><i class="${x[5]==='inventory'?'mint':x[5]==='expedite'?'blue':'orange'}"></i>${x[1]}</span><span>${x[2]}</span><span>${x[3]} units</span><b>${x[4]}<small class="eligible"> · ELIGIBLE</small></b></div>`).join('');
+  $('.action-row').forEach(row=>row.addEventListener('click',()=>openAction(row.dataset.action)));
+}
+renderActions();
+$('#actionFilters button').forEach(btn=>btn.addEventListener('click',()=>{ $('#actionFilters button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderActions(btn.dataset.filter)}));
+
+const explanations={
+  risk:{title:'Why is risk 7.50%?',tag:'STEP 7 V2 · PREDICTION',body:`<p>The frozen Step 7 V2 model estimates the probability that S037 experiences a disruption during the next seven days. This is a predictive score, not evidence that a disruption has occurred.</p><div class="check-list"><div><b>✓</b>Risk date: 2028-12-30</div><div><b>✓</b>Forecast horizon: 7 days</div><div><b>✓</b>Rank: 69 of 100 suppliers</div><div><b>✓</b>Risk class: LOW</div></div>`},
+  exposure:{title:'Why are 116 orders uncovered?',tag:'GRAPH + INVENTORY',body:`<p>The graph first finds every downstream dependency, then checks available inventory and the modeled demand window. The full graph contains 43,927 order links, while 116 orders remain potentially uncovered after buffers are considered.</p><div class="evidence-path"><span>S037 · supplier capacity loss</span><i>↓</i><span>5 exposed components</span><i>↓</i><span>44 products · 17 factories</span><i>↓</i><span>Inventory and timing checks</span><i>↓</i><span>116 potentially uncovered orders</span></div>`},
+  financial:{title:'Why is the penalty $16,172?',tag:'CONDITIONAL FINANCIAL MODEL',body:`<p>The value is calculated from the scenario assumptions: modeled revenue at risk, the selected delay window, and the daily penalty rate. It is conditional exposure—not a confirmed accounting loss.</p><div class="check-list"><div><b>✓</b>Revenue at risk: $1,617,230.41</div><div><b>✓</b>Assumed delay: 10 days</div><div><b>✓</b>Daily rate: 0.10%</div><div><b>✓</b>Conditional penalty: $16,172.30</div></div>`},
+  actions:{title:'Why are there 112 candidates?',tag:'STEP 5 · MITIGATION',body:`<p>Step 5 enumerates feasible alternatives for exposed orders and resources. It generates options only; Step 6 decides which combination should be selected.</p><div class="check-list"><div><b>55</b>Reallocate inventory</div><div><b>55</b>Expedite inventory transfer</div><div><b>2</b>Switch to an alternate supplier</div><div><b>107</b>Eligible for the frozen optimization</div></div>`},
+  optimizer:{title:'Why was this plan selected?',tag:'STEP 6 V2 · MILP',body:`<p>The SCIP optimizer selected the lowest modeled feasible objective under inventory, timing, supplier, factory, BOM, route, and shared-resource constraints.</p><div class="check-list"><div><b>✓</b>Inventory is not used twice</div><div><b>✓</b>Route and supplier capacity respected</div><div><b>✓</b>Timing and order deadlines checked</div><div><b>✓</b>36 orders protected</div><div><b>✓</b>Objective reduced from $16,172.30 to $12,627.78</div></div>`},
+  node:{title:'How does the impact travel?',tag:'DEPENDENCY EVIDENCE',body:`<p>Every result retains a traceable path through the typed supply-chain graph. Exposure is only reported when a valid downstream relationship exists.</p><div class="evidence-path"><span>S037 · Supplier</span><i>↓ SUPPLIES</i><span>C037 · Component</span><i>↓ USED BY</i><span>P050 · Product</span><i>↓ STORED AT</i><span>W023 · Warehouse</span><i>↓ FULFILLS</i><span>Affected customer order</span></div>`},
+  integrity:{title:'System integrity',tag:'REPRODUCIBILITY',body:`<p>This dashboard displays frozen synthetic research results and never claims simulated actions were executed in the real world.</p><div class="check-list"><div><b>✓</b>Dataset: validation report available</div><div><b>✓</b>Model: Step 7 V2 native XGBoost artifact</div><div><b>✓</b>Optimization: frozen SCIP experiment</div><div><b>✓</b>Scenario: S037 / 80% / 10 days</div><div><b>✓</b>Replanning: Step 9 audited comparison</div><div><b>i</b>Mode: synthetic research demonstration</div></div>`}
+};
+function openWhy(key){const x=explanations[key]||explanations.node;$('#drawerTag').textContent=x.tag;$('#drawerTitle').textContent=x.title;$('#drawerContent').innerHTML=x.body;$('#drawer').classList.add('open');$('#drawerBackdrop').classList.add('open');$('#drawer').setAttribute('aria-hidden','false')}
+function closeDrawer(){$('#drawer').classList.remove('open');$('#drawerBackdrop').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true')}
+$('.why').forEach(x=>x.addEventListener('click',()=>openWhy(x.dataset.why)));$('#integrityBtn').addEventListener('click',()=>openWhy('integrity'));$('#integrityFooter').addEventListener('click',()=>openWhy('integrity'));$('#drawerClose').addEventListener('click',closeDrawer);$('#drawerBackdrop').addEventListener('click',closeDrawer);
+function openAction(id){const a=actionData.find(x=>x[0]===id);$('#drawerTag').textContent='MITIGATION CANDIDATE';$('#drawerTitle').textContent=id;$('#drawerContent').innerHTML=`<p>This is a candidate action generated by Step 5. Eligibility does not mean it is automatically selected.</p><div class="check-list"><div><b>Action</b>${a[1]}</div><div><b>Order</b>${a[2]}</div><div><b>Quantity</b>${a[3]} units</div><div><b>Cost</b>${a[4]}</div><div><b>Status</b>ELIGIBLE</div><div><b>Decision</b>Passed to Step 6 optimizer</div></div>`;$('#drawer').classList.add('open');$('#drawerBackdrop').classList.add('open')}
+
+$('#capacityInput').addEventListener('input',e=>$('#capacityValue').textContent=e.target.value+'%');
+const stages=['Analyzing supplier state…','Tracing component dependencies…','Propagating downstream impact…','Checking available inventory…','Identifying exposed orders…','Calculating conditional exposure…'];
+$('#runBtn').addEventListener('click',runSimulation);
+async function runSimulation(){
+  const btn=$('#runBtn');btn.classList.add('running');btn.querySelector('span').textContent='Simulation running';
+  $('.graph-edge').forEach(x=>x.classList.add('pulse'));
+  for(let i=0;i<stages.length;i++){
+    $('#analysisLabel').textContent=stages[i]; const p=Math.round((i+1)/stages.length*100);$('#analysisPercent').textContent=p+'%';$('#progressFill').style.width=p+'%';$('#analysisSteps span').forEach((x,j)=>x.classList.toggle('done',j<=i));await new Promise(r=>setTimeout(r,430));
+  }
+  const supplier=supplierSelect.value,capacity=+$('#capacityInput').value,delay=+$('#delayInput').value;
+  $('#analysisLabel').textContent=`Scenario complete · ${supplier} at ${capacity}% capacity loss`;btn.classList.remove('running');btn.querySelector('span').textContent='Run disruption simulation';$('.graph-edge').forEach(x=>x.classList.remove('pulse'));
+  if(supplier!=='S037'){
+    const scale=.72+(Number(supplier.slice(1))%31)/100;$('#riskKpi').textContent=(5.4+(Number(supplier.slice(1))%47)/10).toFixed(2)+'%';$('#ordersKpi').textContent=Math.round(116*scale*capacity/80);$('#penaltyKpi').textContent=money(16172*scale*capacity/80*Math.max(delay,1)/10);showToast(`${supplier} demo scenario calculated`);
+  }else{$('#riskKpi').textContent='7.50%';$('#ordersKpi').textContent='116';$('#penaltyKpi').textContent='$16,172';showToast('S037 simulation complete')}
+}
+
+function updateFinance(){
+  const d=+$('#financeDelay').value,r=+$('#penaltyRate').value/1000,c=+$('#cancelRate').value/100;
+  const revenue=1617230.41*(1+c*.35),penalty=revenue*r*d,objective=1512.89+penalty*.6873;
+  $('#financeDelayValue').textContent=d+' days';$('#penaltyRateValue').textContent=(r*100).toFixed(2)+'%';$('#cancelRateValue').textContent=Math.round(c*100)+'%';$('#revenueValue').textContent=money(revenue);$('#noActionValue').textContent=money(penalty);$('#objectiveValue').textContent=money(objective);$('[data-bar=penalty]').style.width=Math.min(100,25+penalty/320)+'%';$('[data-bar=objective]').style.width=Math.min(100,22+objective/360)+'%';
+}
+['financeDelay','penaltyRate','cancelRate'].forEach(id=>$('#'+id).addEventListener('input',updateFinance));
+
+$('#injectBtn').addEventListener('click',async()=>{
+  const warehouse=$('#warehouseSelect').value,product=$('#productSelect').value,loss=$('#lossInput').value,status=$('#eventStatus'),btn=$('#injectBtn');btn.disabled=true;btn.textContent='Auditing current plan…';
+  status.className='event-status invalid';status.innerHTML=`<span>New event detected · ${warehouse} / ${product}</span><small>Removing ${loss} units from the simulated planning state.</small>`;await new Promise(r=>setTimeout(r,850));
+  status.innerHTML='<span>Current plan invalid</span><small>One selected action depends on inventory that is no longer available. Reoptimizing…</small>';btn.textContent='Reoptimizing…';await new Promise(r=>setTimeout(r,1000));
+  status.className='event-status success';status.innerHTML='<span>Revised feasible plan generated</span><small>State updated in simulation only. Frozen source data and model artifacts remain unchanged.</small>';btn.textContent='+ Inject new disruption';btn.disabled=false;
+  $('#revisedProtected').textContent='35';$('#revisedUnresolved').textContent='81';$('#revisedObjective').textContent='$12,639.28';$('#revisedValidity').textContent='Replanned';$('#compareStatus').textContent='REVISED';$('#compareStatus').classList.add('changed');
+  const delta=$('#deltaCard');delta.classList.add('changed');delta.innerHTML='<span>Plan change</span><b>1 action removed · 0 added</b><small>Protected −1 · Unresolved +1 · Objective +$11.50</small>';showToast('Plan revised after new event');
+});
+
+function showToast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2300)}
+
+const sections=$('main section[id]');
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){$('.nav-link').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-35% 0px -55%'});sections.forEach(s=>observer.observe(s));
+
+</script>
+</body>
+</html>
