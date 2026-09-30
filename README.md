@@ -8,6 +8,7 @@ The project combines graph analysis, machine-learning risk prediction, financial
 
 > **Research status:** Steps 1–9 have been implemented and experimentally validated on the project's synthetic supply-chain environment. The experiments are synthetic and do not constitute enterprise or real-world operational validation.
 
+This work is still under process.
 ---
 
 ## Research Question
